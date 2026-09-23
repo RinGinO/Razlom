@@ -1,0 +1,15 @@
+{
+  "name": "razlom",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "sim": "pnpm --filter @razlom/sim sim",
+    "dev": "pnpm --filter @razlom/client dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

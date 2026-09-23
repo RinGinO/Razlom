@@ -1,0 +1,194 @@
+/* Палитра и типографика варианта Д: трещина как единственный источник света. */
+:root {
+  --bg: oklch(0.135 0.028 288);
+  --card: oklch(0.235 0.030 288);
+  --card-dim: oklch(0.185 0.026 288);
+  --border: oklch(0.30 0.032 288);
+  --text: oklch(0.92 0.01 288);
+  --muted: oklch(0.58 0.02 288);
+  --faint: oklch(0.42 0.02 288);
+  --amber: oklch(0.86 0.16 76);
+  --amber-d: oklch(0.72 0.16 66);
+  --red: oklch(0.64 0.22 28);
+  --red-l: oklch(0.80 0.17 34);
+  --green: oklch(0.72 0.16 152);
+  --fire: oklch(0.68 0.20 32);
+  --water: oklch(0.66 0.16 248);
+  --earth: oklch(0.72 0.16 152);
+  --air: oklch(0.90 0.02 250);
+  --void: oklch(0.64 0.21 305);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Barlow, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 460px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* мягкое устье разлома вверху — без резких границ */
+.app::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 70px;
+  transform: translate(-50%, -50%);
+  width: 460px; height: 300px;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center,
+    oklch(0.78 0.16 70 / .22) 0%, oklch(0.74 0.16 68 / .09) 36%, transparent 76%);
+}
+
+.head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 14px 16px 6px; position: relative;
+}
+.wordmark {
+  font-family: Cinzel, Georgia, serif; font-size: 13px; font-weight: 700;
+  letter-spacing: .2em; color: oklch(0.86 0.09 78);
+}
+.phase {
+  font-size: 10px; font-weight: 600; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--amber-d); margin-left: 9px;
+}
+.meta { font-size: 10.5px; letter-spacing: .08em; color: var(--muted); white-space: nowrap; }
+
+.body { flex: 1; padding: 0 14px; position: relative; display: flex; flex-direction: column; }
+.foot { padding: 10px 14px 18px; position: relative; }
+
+h1.title {
+  font-family: Cinzel, Georgia, serif; font-size: 28px; font-weight: 700;
+  letter-spacing: .04em; margin: 14px 0 6px;
+}
+.lead { font-size: 12.5px; line-height: 1.45; color: var(--muted); margin: 0 0 14px; }
+
+.threshold { display: flex; flex-direction: column; align-items: center; padding: 8px 0 14px; }
+.threshold .label {
+  font-size: 9px; font-weight: 700; letter-spacing: .34em;
+  color: oklch(0.88 0.11 80); text-shadow: 0 0 18px oklch(0.80 0.16 72 / .9);
+}
+.threshold .value {
+  font-family: Cinzel, Georgia, serif; font-size: 72px; font-weight: 700; line-height: 1.02;
+  color: oklch(0.98 0.05 84);
+  text-shadow: 0 0 60px oklch(0.84 0.17 70), 0 0 28px oklch(0.86 0.16 74 / .8);
+}
+.threshold .hint { margin-top: 3px; font-size: 10.5px; color: oklch(0.80 0.03 84); }
+
+.node {
+  display: flex; align-items: center; gap: 11px;
+  padding: 9px 11px; margin-bottom: 9px;
+  border: 1px solid var(--border); border-radius: 14px;
+  background: linear-gradient(100deg, var(--card) 0%, var(--card-dim) 72%);
+  box-shadow: inset 2px 0 0 oklch(0.62 0.13 70 / .45), 0 5px 14px rgba(0,0,0,.5);
+}
+.node.burned { background: oklch(0.155 0.018 288); border-style: dashed; opacity: .75; }
+.dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; }
+.dot.lit { box-shadow: 0 0 14px currentColor; }
+.node .name { font-family: Cinzel, Georgia, serif; font-size: 15px; font-weight: 600; flex: 1; }
+.node .amount {
+  font-family: Cinzel, Georgia, serif; font-size: 28px; font-weight: 700;
+  line-height: 1; min-width: 30px; text-align: center;
+}
+.node .amount.zero { color: oklch(0.34 0.02 288); }
+
+.badge {
+  font-size: 9px; font-weight: 700; letter-spacing: .08em; padding: 2px 6px;
+  border-radius: 4px; background: linear-gradient(oklch(0.46 0.11 72), oklch(0.34 0.08 68));
+  color: var(--amber);
+}
+
+button { font-family: inherit; cursor: pointer; }
+button:disabled { cursor: default; }
+
+.step {
+  width: 44px; height: 44px; border-radius: 12px; font-size: 23px; line-height: 1;
+  border: 1px solid var(--border); background: oklch(0.21 0.026 288); color: oklch(0.80 0.01 288);
+}
+.step.plus { border-color: oklch(0.58 0.13 70); background: linear-gradient(oklch(0.34 0.08 68), oklch(0.25 0.06 66)); color: var(--amber); }
+.step:disabled { color: oklch(0.30 0.02 288); background: oklch(0.175 0.024 288); border-color: oklch(0.24 0.026 288); }
+
+.primary {
+  width: 100%; height: 52px; border: none; border-radius: 13px;
+  background: linear-gradient(oklch(0.88 0.15 80), oklch(0.74 0.17 64));
+  color: oklch(0.17 0.04 60);
+  font-family: Cinzel, Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: .08em;
+  box-shadow: inset 0 1.5px 0 rgba(255,244,214,.65), 0 4px 14px rgba(0,0,0,.5);
+}
+.primary:disabled { background: oklch(0.28 0.03 288); color: var(--faint); box-shadow: none; }
+
+.ghost {
+  height: 44px; padding: 0 16px; border-radius: 12px;
+  border: 1px solid var(--border); background: oklch(0.19 0.026 288); color: oklch(0.78 0.02 288);
+  font-size: 13px;
+}
+.dashed {
+  width: 100%; height: 42px; border-radius: 12px; font-size: 12px;
+  border: 1px dashed oklch(0.44 0.11 305);
+  background: linear-gradient(oklch(0.22 0.045 302), oklch(0.17 0.032 300));
+  color: oklch(0.78 0.12 305);
+}
+
+.hand {
+  display: flex; align-items: center; gap: 9px; padding: 6px 2px 10px;
+  font-size: 12px; font-weight: 600;
+}
+.gem { width: 14px; height: 14px; border-radius: 50%; }
+.gem.lit { box-shadow: 0 0 10px currentColor; }
+
+.mana-row { display: flex; align-items: center; gap: 13px; }
+.mana-num {
+  font-family: Cinzel, Georgia, serif; font-size: 30px; font-weight: 700; line-height: 1;
+  color: oklch(0.96 0.05 84); text-shadow: 0 0 20px oklch(0.80 0.15 72 / .8);
+}
+.cap { font-size: 12px; color: var(--muted); }
+.tiny { font-size: 8.5px; font-weight: 700; letter-spacing: .16em; color: var(--muted); text-transform: uppercase; }
+
+.panel {
+  border: 1px solid var(--border); border-radius: 13px; padding: 12px 13px;
+  background: linear-gradient(100deg, var(--card) 0%, var(--card-dim) 72%); margin-bottom: 11px;
+}
+.panel.warn { background: linear-gradient(oklch(0.26 0.08 28), oklch(0.19 0.05 24)); border-color: oklch(0.44 0.13 30); }
+.panel.good { background: linear-gradient(oklch(0.24 0.06 152), oklch(0.18 0.04 150)); border-color: oklch(0.42 0.10 152); }
+.panel.pick { border: 2px solid oklch(0.66 0.13 72); background: linear-gradient(140deg, oklch(0.27 0.055 70), oklch(0.19 0.032 68)); }
+
+.row { display: flex; align-items: center; gap: 10px; }
+.spacer { flex: 1; }
+.center { text-align: center; }
+
+.ava {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600;
+  background: oklch(0.26 0.03 288); border: 1px solid oklch(0.33 0.03 288); color: oklch(0.76 0.02 288);
+}
+.ava.me { background: linear-gradient(oklch(0.44 0.10 70), oklch(0.30 0.07 66)); border-color: oklch(0.62 0.13 72); color: var(--amber); }
+
+.gauge { height: 16px; border-radius: 9px; background: oklch(0.20 0.026 288); position: relative; box-shadow: inset 0 2px 5px rgba(0,0,0,.6); }
+.gauge .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 9px 0 0 9px; background: linear-gradient(90deg, oklch(0.46 0.10 70), var(--amber-d)); }
+.gauge .over { position: absolute; top: -2px; bottom: -2px; border-radius: 0 10px 10px 0; background: linear-gradient(90deg, var(--red), var(--red-l)); box-shadow: 0 0 20px var(--red); }
+.gauge .mark { position: absolute; top: -7px; bottom: -7px; width: 2px; background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+
+table.score { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.score td { padding: 7px 0; border-bottom: 1px solid oklch(0.22 0.026 288); }
+table.score td.num { text-align: right; font-family: Cinzel, Georgia, serif; font-weight: 700; font-size: 16px; }
+table.score tr.me td { color: var(--amber); }
+
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+
+.curtain {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 18px; text-align: center; padding: 24px;
+}
+.curtain .who { font-family: Cinzel, Georgia, serif; font-size: 34px; font-weight: 700; }

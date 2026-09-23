@@ -1,0 +1,16 @@
+packages:
+  - 'packages/*'
+
+allowBuilds:
+  esbuild: set this to true or false
+
+# esbuild приезжает готовым бинарником для платформы; его postinstall только
+# линкует его и для запуска тестов не нужен. Заявляем это явно, иначе pnpm
+# останавливает любую команду предупреждением о пропущенной сборке.
+ignoredBuiltDependencies:
+  - esbuild
+
+# Перед каждым `pnpm run` pnpm заново сверяет зависимости и запускает install,
+# который спотыкается о ту же пропущенную сборку. Проверку выключаем: install
+# запускается явно, отдельной командой.
+verifyDepsBeforeRun: false
